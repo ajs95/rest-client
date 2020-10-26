@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
+const apiProxy = require("./route/apiProxy.js");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 8000;
@@ -26,6 +27,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use("/api/proxy", apiProxy);
+app;
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build/index.html"));
